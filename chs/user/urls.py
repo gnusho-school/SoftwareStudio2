@@ -17,5 +17,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('<str:uid>/', views.UserListAPI.as_view()),
+    path('', views.UserListAPI.as_view()),
+    path('<str:uid>/', views.UserDetailAPI.as_view()),
 ]

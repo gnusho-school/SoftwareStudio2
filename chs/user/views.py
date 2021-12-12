@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import User
+from .models import Users
+from .serializer import UserSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -8,48 +9,46 @@ import json
 
 class UserListAPI(APIView):
 
-    # POST
-    '''
-    uid 받아서 있는지 찾아보고 없으면 추가
-    '''
-    def post(self, reques, uid):
+    # GET: 전체 user list
+    def get(self, request):
 
-        user = User.objects.filter(uid = uid)
-        
-        if user.count() is not 0:
-            return HttpResponse('BAD REQUEST', status = 400)
+        users = Users.objects.all()
+        serializer = UserSerializer(users, many = True)
+        return Response(serializer.data)
     
-        ret = User(
-            uid = uid
-        )
-        ret.save()
+    # POST
+    def post(self, request):
 
-        return HttpResponse(json.dumps(list(ret)), status = 200)
+        serializer = UserSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserDetailAPI(APIView):
+
     # GET
-    '''
-    uid 받아서 있는지 찾아보고 있으면 Response
-    '''
     def get(self, request, uid):
 
-        user = User.objects.filter(uid = uid)
-        
-        if user.count() is 0:
-            return HttpResponse('BAD REQUEST', status = 400)
-
-        return HttpResponse(json.dumps(list(user)), status = 200)
+        user = get_object_or_404(Users, uid = uid)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
 
     # PUT
-    '''
-    uid 받아서 있는지 찾아보고 있으면 수정
-    '''
     def put(self, request, uid):
-        return HttpResponse('BAD REQUEST', status = 400)
 
-    '''
-    uid 받아서 있는지 찾아복 있으면 삭제
-    '''
+        user = get_object_or_404(Users, uid = uid)
+        serializer = UserSerializer(user, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return HttpResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     # DEL
     def delete(self, request, uid):
-        return HttpResponse('BAD REQUEST', status = 400)
+
+        user = get_object_or_404(Users, uid = uid)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
         

@@ -1,10 +1,10 @@
 from django.db import models
-from user.models import User
+from user.models import Users
 
 class Work(models.Model):
     
     title = models.CharField(max_length = 100)
-    uid = models.ForeignKey(User, on_delete = models.CASCADE)
+    user = models.ForeignKey(Users, on_delete = models.CASCADE)
     
     # 날짜 및 시간 처리
     date = models.DateField()

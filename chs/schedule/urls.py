@@ -17,5 +17,16 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    #path('<str:uid>/', views.WorkListAPI.as_view()),
+    path('', views.WorkListAPI.as_view()),
+    path('shorterm/<int:pk>/', views.ShortTermDetailAPI.as_view()),
+    path('longterm/<int:pk>/', views.LongTermDetailAPI.as_view()),
+    path('repeat/', views.RepeatAPI.as_view()),
 ]
+
+'''
+대전제: query parameter로 user의 pk와 start_date + end_date가 "%y-%m-%d"의 형태로 전달됨
+1. GET ShortTerm과 LongTerm 합친 모든 work 
+(GET "base_url/schedule/?user=<pk>&start_date=<date>&end_date=date")
+2. POST ShortTerm과 LongTerm 합친 모든 work
+(POST "base_url/schedule/") -> body에 내용 추가
+'''

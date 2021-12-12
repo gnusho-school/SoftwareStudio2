@@ -18,5 +18,5 @@ from . import views
 
 urlpatterns = [
     path('', views.UserListAPI.as_view()),
-    path('<str:uid>/', views.UserDetailAPI.as_view()),
+    path('<str:uid>', views.UserDetailAPI.as_view()),
 ]

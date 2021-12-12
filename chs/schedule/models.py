@@ -18,6 +18,9 @@ class Work(models.Model):
 
     status = models.CharField(max_length = 1, choices = STATUS_CHOICES)
 
+    class Meta:
+        abstract = True
+
 class ShortTerm(Work):
     
     start_time = models.TimeField()

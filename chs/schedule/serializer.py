@@ -1,8 +1,13 @@
 from django.core import serializers
 from rest_framework import serializers
-from. models import Users
+from. models import ShortTerm, LongTerm
 
-class UserSerializer(serializers.ModelSerializer):
+class ShortTermSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = ShortTerm
+        fields = '__all__'
+
+class LongTermSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LongTerm
         fields = '__all__'

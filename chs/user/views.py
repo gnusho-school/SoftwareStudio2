@@ -4,6 +4,7 @@ from .models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+import json
 
 class UserListAPI(APIView):
 
@@ -13,31 +14,42 @@ class UserListAPI(APIView):
     '''
     def post(self, reques, uid):
 
+        user = User.objects.filter(uid = uid)
         
-        return HttpResponse('BAD REQUEST', status = status.HTTP_400_BAD_REQUEST)
+        if user.count() is not 0:
+            return HttpResponse('BAD REQUEST', status = 400)
     
+        ret = User(
+            uid = uid
+        )
+        ret.save()
+
+        return HttpResponse(json.dumps(list(ret)), status = 200)
     # GET
     '''
     uid 받아서 있는지 찾아보고 있으면 Response
     '''
     def get(self, request, uid):
 
-        if uid == None:
-            return HttpResponse('BAD REQUEST', status = status.HTTP_400_BAD_REQUEST)
-        return HttpResponse('BAD REQUEST', status = status.HTTP_400_BAD_REQUEST)
+        user = User.objects.filter(uid = uid)
+        
+        if user.count() is 0:
+            return HttpResponse('BAD REQUEST', status = 400)
+
+        return HttpResponse(json.dumps(list(user)), status = 200)
 
     # PUT
     '''
     uid 받아서 있는지 찾아보고 있으면 수정
     '''
-    def put(self, request):
-        return HttpResponse('BAD REQUEST', status = status.HTTP_400_BAD_REQUEST)
+    def put(self, request, uid):
+        return HttpResponse('BAD REQUEST', status = 400)
 
     '''
     uid 받아서 있는지 찾아복 있으면 삭제
     '''
     # DEL
-    def delete(self, request):
-        return HttpResponse('BAD REQUEST', status = status.HTTP_400_BAD_REQUEST)
+    def delete(self, request, uid):
+        return HttpResponse('BAD REQUEST', status = 400)
 
         

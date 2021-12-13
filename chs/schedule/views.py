@@ -7,7 +7,7 @@ from user.models import Users
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 
 # title = request.GET.get('title', None) -> query parameter 사용
@@ -15,6 +15,12 @@ import json
 def getShortTermQuerySet(user, start_date, end_date):
     ret = ShortTerm.objects.filter(
             Q(user = user) & Q(date__range = [start_date, end_date])
+    )
+    return ret
+
+def getShortTermQuerySetRepeated(user, repeat, start_date, end_date):
+    ret = ShortTerm.objects.filter(
+            Q(user = user) & Q(repeat = repeat) & Q(date__range = [start_date, end_date])
     )
     return ret
 
@@ -29,6 +35,17 @@ def getLongTermQuerySet(user, start_date, end_date):
     )
     return ret
 
+def getRepeatTermQuerySet(user, start_date, end_date):
+    ret = Repeat.objects.filter(
+        Q(user = user) & (
+            (Q(start_date__gte = start_date) & Q(start_date__lte = end_date))|
+            (Q(end_date__gte = start_date) & Q(end_date__lte = end_date))|
+            (Q(start_date__lte = start_date) & Q(end_date__gte = end_date))|
+            (Q(start_date__gte = start_date) & Q(end_date__lte = end_date))
+        )
+    )
+    return ret
+
 class WorkListAPI(APIView):
     # GET
     def get(self, request):
@@ -37,7 +54,7 @@ class WorkListAPI(APIView):
         start_date = request.GET.get('start_date', None)
         end_date = request.GET.get('end_date', None)
         
-        if start_date is None or end_date is None:
+        if user is None or start_date is None or end_date is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         start_date = datetime.strptime(start_date, '%Y-%m-%d')
@@ -74,7 +91,7 @@ class ShortTermListAPI(APIView):
         start_date = request.GET.get('start_date', None)
         end_date = request.GET.get('end_date', None)
         
-        if start_date is None or end_date is None:
+        if user is None or start_date is None or end_date is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         start_date = datetime.strptime(start_date, '%Y-%m-%d')
@@ -136,7 +153,7 @@ class LongTermListAPI(APIView):
         start_date = request.GET.get('start_date', None)
         end_date = request.GET.get('end_date', None)
         
-        if start_date is None or end_date is None:
+        if user is None or start_date is None or end_date is None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         start_date = datetime.strptime(start_date, '%Y-%m-%d')
@@ -194,26 +211,90 @@ class RepeatListAPI(APIView):
     # GET
     def get(self, request):
         
+        user = request.GET.get('user', None)
         start_date = request.GET.get('start_date', None)
         end_date = request.GET.get('end_date', None)
 
-        '''
-        해당 repeat가 존재시 repeat별로 묶어서 보내줘야 함
-        단, start_date와 end_date 안에 있는 값으로만 하도록
-        '''
+        if user is None or start_date is None or end_date is None:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        start_date = datetime.strptime(start_date, '%Y-%m-%d')
+        end_date = datetime.strptime(end_date, '%Y-%m-%d')
+
+        # repeat list
+        repeat = getRepeatTermQuerySet(user, start_date, end_date)
+        repeatSerializer = RepeatSerializer(repeat, many = True)
+
+        # shorterms per repeat
+        id_list = [x['id'] for x in repeatSerializer.data]
+        shortTerms = []
+        
+        for idx in id_list:
+            tmp = getShortTermQuerySetRepeated(user, idx, start_date, end_date)
+            shortTermsSerializer = ShortTermSerializer(tmp, many = True)
+            shortTerms.append({
+                'repeat_id': idx,
+                'shortterms': shortTermsSerializer.data
+            })
+
+        ret = {
+            'repeat': repeatSerializer.data,
+            'shortTerms': shortTerms
+        }
+
+        return Response(ret)
     
     # POST
     def post(self, request):
-
+        
         serializer = RepeatSerializer(data = request.data)
         if serializer.is_valid():
+
             serializer.save()
 
-            '''
-            날짜 계산해서 start date 부터 end date까지 term 따라서 shortterm 추가해야 함
-            '''
+            repeat = serializer.data['id']
+
+            data = request.data.dict()
+            
+            day = datetime.strptime(data['start_date'], '%Y-%m-%d')
+            limit = datetime.strptime(data['end_date'], '%Y-%m-%d')
+            term = int(data['term'])
+
+            title = data['title']
+            start_time = data['start_time'] if 'start_time' in data else None
+            end_time = data['end_time'] if 'end_time' in data else None
+            user = int(data['user'])
+            
+            shortTerm = {
+                'title': title,
+                'user': user,
+                'date': day,
+                'repeat': repeat,
+                'status': 'O'
+            }
+
+            if start_time is not None: shortTerm['start_time'] = start_time
+            if end_time is not None: shortTerm['end_time'] = end_time
+
+            shortTerms = []
+
+            while day <= limit:
+                
+                shortTerm['date'] = day.strftime("%Y-%m-%d")
+                serializer_ = ShortTermSerializer(data = shortTerm)
+        
+                if serializer_.is_valid():
+                    serializer_.save()
+                    shortTerms.append(serializer_.data) 
+
+                day += timedelta(days = term)
+            
+            ret = {
+                'repeat': serializer.data,
+                'shortterms': shortTerms
+            }
+
+            return Response(ret, status = 200)
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -225,15 +306,20 @@ class RepeatDetailAPI(APIView):
 
         serializer = RepeatSerializer(repeat)
 
+        user = request.GET.get('user', None)
         start_date = request.GET.get('start_date', None)
         end_date = request.GET.get('end_date', None)
 
-        '''
-        해당 repeat가 존재시 repeat별로 묶어서 보내줘야 함
-        단, start_date와 end_date 안에 있는 값으로만 하도록
-        '''
+        if user is None or start_date is None or end_date is None:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        shortTerms = getShortTermQuerySetRepeated(user, pk, start_date, end_date)
+
+        shortTermsSerializer = ShortTermSerializer(shortTerms, many = True)
+
+        ret = shortTermsSerializer.data
+
+        return Response(ret)
 
     # PUT
     def put(self, request, pk):

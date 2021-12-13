@@ -28,8 +28,16 @@ class Work(models.Model):
 
 class Repeat(models.Model):
 
+    user = models.ForeignKey(
+        Users, 
+        on_delete = models.CASCADE
+    )
+
+    start_date = models.DateField()
     end_date = models.DateField()
     term = models.IntegerField()
+    start_time = models.TimeField(null = True)
+    end_time = models.TimeField(null = True)
 
 class ShortTerm(Work):
     

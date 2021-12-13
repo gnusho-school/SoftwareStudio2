@@ -18,9 +18,12 @@ from . import views
 
 urlpatterns = [
     path('', views.WorkListAPI.as_view()),
-    path('shorterm/<int:pk>/', views.ShortTermDetailAPI.as_view()),
+    path('shortterm/', views.ShortTermListAPI.as_view()),
+    path('shortterm/<int:pk>/', views.ShortTermDetailAPI.as_view()),
+    path('longterm/', views.LongTermListAPI.as_view()),
     path('longterm/<int:pk>/', views.LongTermDetailAPI.as_view()),
-    path('repeat/', views.RepeatAPI.as_view()),
+    path('repeat/', views.RepeatListAPI.as_view()),
+    path('repeat/<int:pk>/', views.RepeatDetailAPI.as_view()),
 ]
 
 '''

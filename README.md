@@ -31,7 +31,7 @@
 | 기간 스케줄 하나 가져오기 | GET | longterm/<int: 스케줄 pk>/ | X | X | O |
 | 기간 스케줄 하나 수정 | PUT | longterm/<int: 스케줄 pk>/ | X | title -> stringuser -> user pkdate -> date formstatus -> char( &#39;D&#39; -> 해결한 스케줄 &#39;F&#39; -> 실패한 스케줄 &#39;O&#39; -> 진행중인 스케줄)end\_date -> date form | O |
 | 기간 스케줄 하나 삭제 | DEL | longterm/<int: 스케줄 pk>/ | X | X | O |
-| 반복 스케줄 추가 | POST | repeat/ | X | title -> stringuser -> user pkstart\_date -> date formend\_date -> date formterm -> intstart\_time ->time form (없어도 생성)end\_time -> time form(없어도 생성) |
-| 반복 스케줄 전체 가져오기 | GET | repeat/<int: repeat pk>/ | user -> user pkstart\_date -> date formend\_date -> date form | X |
-| 반복 스케줄 하나 가져오기 | GET | repeat/<int: repeat pk>/ | user -> user pkstart\_date -> date formend\_date -> date form | X |
-| 반복 스케줄 하나 삭제 | DEL | repeat/<int: repeat pk>/ | X | X |
+| 반복 스케줄 추가 | POST | repeat/ | X | title -> stringuser -> user pkstart\_date -> date formend\_date -> date formterm -> intstart\_time ->time form (없어도 생성)end\_time -> time form(없어도 생성) | O |
+| 반복 스케줄 전체 가져오기 | GET | repeat/<int: repeat pk>/ | user -> user pkstart\_date -> date formend\_date -> date form | X | O |
+| 반복 스케줄 하나 가져오기 | GET | repeat/<int: repeat pk>/ | user -> user pkstart\_date -> date formend\_date -> date form | X | O |
+| 반복 스케줄 하나 삭제 | DEL | repeat/<int: repeat pk>/ | X | X | O |

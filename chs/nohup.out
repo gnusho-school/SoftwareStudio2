@@ -735,3 +735,140 @@ IndentationError: expected an indented block
 Performing system checks...
 
 Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+[14/Dec/2021 02:06:24] "GET /schedule/repeat/?start_date=2021-01-01&end_date=2021-03-31&user=1 HTTP/1.1" 200 2675
+[14/Dec/2021 02:06:31] "GET /schedule/repeat/?start_date=2021-01-01&end_date=2021-03-31&user=1 HTTP/1.1" 200 2675
+[14/Dec/2021 02:06:40] "GET /schedule/repeat/?start_date=2021-01-01&end_date=2021-03-31&user=2 HTTP/1.1" 200 1279
+[14/Dec/2021 03:32:19] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x00u\x01\x00\x00q\x03\x03O²¨OÅ\x97ÓÜ\x8dS¿\x88®(<UX±µ\x9dß\x05\x9dø\x01$aõá4A\x03\x00\x00\x1aÀ/À+À\x11À\x07À\x13À')
+[14/Dec/2021 03:32:19] You're accessing the development server over HTTPS, but it only supports HTTP.
+
+[14/Dec/2021 05:15:46,261] - Broken pipe from ('162.142.125.60', 43244)
+
+Not Found: /
+[14/Dec/2021 05:15:47] "GET / HTTP/1.1" 404 2272
+[14/Dec/2021 05:15:47,835] - Broken pipe from ('162.142.125.60', 54152)
+
+Not Found: /
+[14/Dec/2021 05:15:48] "GET / HTTP/1.1" 404 2272
+Not Found: /
+[14/Dec/2021 12:03:47] "GET / HTTP/1.1" 404 2272
+Not Found: /
+[14/Dec/2021 13:49:47] "GET / HTTP/1.1" 404 2272
+[14/Dec/2021 14:07:40,449] - Broken pipe from ('162.142.125.60', 40150)
+
+Not Found: /
+[14/Dec/2021 14:07:41] "GET / HTTP/1.1" 404 2272
+[14/Dec/2021 14:07:41,935] - Broken pipe from ('162.142.125.60', 35710)
+
+Not Found: /
+[14/Dec/2021 14:07:42] "GET / HTTP/1.1" 404 2272
+[14/Dec/2021 14:56:56] "GET /schedule/longterm/1/ HTTP/1.1" 200 8594
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 304 0
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/css/default.css HTTP/1.1" 304 0
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/css/prettify.css HTTP/1.1" 304 0
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/js/jquery-3.5.1.min.js HTTP/1.1" 200 89476
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+[14/Dec/2021 14:56:56] "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+[14/Dec/2021 17:30:20,924] - Broken pipe from ('162.142.125.58', 36340)
+
+Not Found: /
+[14/Dec/2021 17:30:22] "GET / HTTP/1.1" 404 2272
+[14/Dec/2021 17:30:22,496] - Broken pipe from ('162.142.125.58', 59742)
+
+Not Found: /
+[14/Dec/2021 17:30:22] "GET / HTTP/1.1" 404 2272
+[14/Dec/2021 19:22:59,998] - Broken pipe from ('69.55.55.155', 50666)
+
+[14/Dec/2021 19:33:10] "GET /schedule/repeat/?start_date=2021-01-01&end_date=2021-03-31&user=2 HTTP/1.1" 200 1279
+[14/Dec/2021 21:37:02] code 400, message Bad request version ('À\x14À')
+[14/Dec/2021 21:37:02] You're accessing the development server over HTTPS, but it only supports HTTP.
+
+Not Found: /
+[14/Dec/2021 23:20:27] "GET / HTTP/1.1" 404 2272
+[15/Dec/2021 00:38:56,858] - Broken pipe from ('59.26.157.146', 61085)
+
+[15/Dec/2021 01:07:22] code 400, message Bad request syntax ('\x03\x00\x00\x13\x0eà\x00\x00\x00\x00\x00\x01\x00\x08\x00\x03\x00\x00\x00')
+[15/Dec/2021 01:07:22] "  à          " 400 -
+[15/Dec/2021 01:45:38] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+[15/Dec/2021 01:45:38] "  /*à     Cookie: mstshash=Administr" 400 -
+[15/Dec/2021 03:37:32] "GET /user HTTP/1.1" 301 0
+[15/Dec/2021 03:37:44] "GET /user/ HTTP/1.1" 200 253
+Not Found: /api/user/
+[15/Dec/2021 03:39:14] "GET /api/user/ HTTP/1.1" 404 2329
+[15/Dec/2021 03:41:20] "GET /user/ HTTP/1.1" 200 253
+[15/Dec/2021 04:06:26] "GET /user/ HTTP/1.1" 200 253
+Not Found: /
+[15/Dec/2021 08:14:34] "GET / HTTP/1.1" 404 2272
+[15/Dec/2021 09:20:26,608] - Broken pipe from ('167.94.138.42', 39154)
+
+Not Found: /
+[15/Dec/2021 09:20:27] "GET / HTTP/1.1" 404 2272
+[15/Dec/2021 09:20:27,967] - Broken pipe from ('167.94.138.42', 34412)
+
+Not Found: /
+[15/Dec/2021 09:20:28] "GET / HTTP/1.1" 404 2272
+[15/Dec/2021 10:38:45] "GET /schedule/repeat/?start_date=2021-01-01&end_date=2021-03-31&user=2 HTTP/1.1" 200 1279
+/home/ubuntu/calendar-hyun-server/chs/chs/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+December 14, 2021 - 02:06:13
+Django version 4.0, using settings 'chs.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Watching for file changes with StatReloader
+/home/ubuntu/calendar-hyun-server/chs/chs/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+December 15, 2021 - 10:40:31
+Django version 4.0, using settings 'chs.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Watching for file changes with StatReloader
+/home/ubuntu/calendar-hyun-server/chs/chs/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+December 15, 2021 - 10:40:41
+Django version 4.0, using settings 'chs.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Watching for file changes with StatReloader
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/ubuntu/calendar-hyun-server/mv/lib/python3.8/site-packages/django/utils/autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "/home/ubuntu/calendar-hyun-server/mv/lib/python3.8/site-packages/django/core/management/commands/runserver.py", line 124, in inner_run
+    self.check(display_num_errors=True)
+  File "/home/ubuntu/calendar-hyun-server/mv/lib/python3.8/site-packages/django/core/management/base.py", line 488, in check
+    raise SystemCheckError(msg)
+django.core.management.base.SystemCheckError: SystemCheckError: System check identified some issues:
+
+ERRORS:
+?: (corsheaders.E013) Origin '*' in CORS_ALLOWED_ORIGINS is missing scheme or netloc
+	HINT: Add a scheme (e.g. https://) or netloc (e.g. example.com).
+
+System check identified 1 issue (0 silenced).
+/home/ubuntu/calendar-hyun-server/chs/chs/settings.py changed, reloading.
+Performing system checks...
+
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+December 15, 2021 - 10:41:54
+Django version 4.0, using settings 'chs.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+Watching for file changes with StatReloader
+[15/Dec/2021 10:46:08] "GET /schedule/repeat/?start_date=2021-01-01&end_date=2021-03-31&user=2 HTTP/1.1" 200 1279

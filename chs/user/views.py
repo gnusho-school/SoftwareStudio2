@@ -18,8 +18,9 @@ class UserListAPI(APIView):
     
     # POST
     def post(self, request):
-
-        serializer = UserSerializer(data = request.data)
+        data = request.data["data"]
+        print(data)
+        serializer = UserSerializer(data = data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

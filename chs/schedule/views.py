@@ -109,9 +109,14 @@ class ShortTermListAPI(APIView):
     # POST
     def post(self, request):
 
-        data = request.data.dict()
+        print(request.data)
+        data = request.data["data"]
         data['status'] = 'O'
+        print(data)
         serializer = ShortTermSerializer(data = data)
+        print(serializer)
+        print(type(data['user']))
+        print(serializer.is_valid())
 
         if serializer.is_valid():
             serializer.save()
@@ -171,7 +176,7 @@ class LongTermListAPI(APIView):
     # POST
     def post(self, request):
 
-        data = request.data.dict()
+        data = request.data['data']
         data['status'] = 'O'
         serializer = LongTermSerializer(data = data)
 
